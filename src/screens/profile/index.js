@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -7,34 +7,36 @@ import {
   Linking,
   Image,
   Switch,
-  Alert, Platform, AppState
-} from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import Icon from "react-native-vector-icons/Ionicons";
+  Alert,
+  Platform,
+  AppState,
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import Icon from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import { launchCamera, launchImageLibrary } from "react-native-image-picker";
-import appColors from "../../theme/appColors";
-import Header from "../../components/header";
-import { styles } from "./styles";
-import { BellIcon } from "../../assets/Icons/svg/bell";
-import HelpSupportIcon from "../../assets/Icons/svg/helpSupport";
-import Faq from "../../assets/Icons/svg/faq";
-import { windowHeight } from "../../theme/appConstant";
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import appColors from '../../theme/appColors';
+import Header from '../../components/header';
+import { styles } from './styles';
+import { BellIcon } from '../../assets/Icons/svg/bell';
+import HelpSupportIcon from '../../assets/Icons/svg/helpSupport';
+import Faq from '../../assets/Icons/svg/faq';
+import { windowHeight } from '../../theme/appConstant';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCustomerDetails } from "../../redux/slices/customerSlice"
-import TermsServiceIcon from "../../assets/Icons/svg/termsServiceIcon"
-import DeleteAccountModal from "../../otherComponent/deleteModal"
-import { deleteAccount } from "../../redux/slices/deleteAccountSlice";
-import { useAuth } from "../../utils/context/authContext";
+import { getCustomerDetails } from '../../redux/slices/customerSlice';
+import TermsServiceIcon from '../../assets/Icons/svg/termsServiceIcon';
+import DeleteAccountModal from '../../otherComponent/deleteModal';
+import { deleteAccount } from '../../redux/slices/deleteAccountSlice';
+import { useAuth } from '../../utils/context/authContext';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ASYNC_FCM_TOKEN } from '../../utils/storageKeys';
 
 import messaging from '@react-native-firebase/messaging';
 import { updateFcmToken } from '../../redux/slices/notificationSlice';
-import { useToast } from "../../utils/context/toastContext";
-import { clearAddressState } from "../../redux/slices/addressSlice";
-import { clearCart } from "../../redux/slices/cartSlice";
+import { useToast } from '../../utils/context/toastContext';
+import { clearAddressState } from '../../redux/slices/addressSlice';
+import { clearCart } from '../../redux/slices/cartSlice';
 
 export const requestNotificationPermission = async () => {
   const authStatus = await messaging().requestPermission();
@@ -46,7 +48,6 @@ export const requestNotificationPermission = async () => {
   return enabled;
 };
 
-
 const MenuItem = ({ icon, label, onPress, isLast, rightComponent }) => (
   <TouchableOpacity
     style={[styles.menuItem, isLast && { borderBottomWidth: 0 }]}
@@ -56,7 +57,11 @@ const MenuItem = ({ icon, label, onPress, isLast, rightComponent }) => (
   >
     <View style={styles.iconBox}>{icon}</View>
     <Text style={styles.menuText}>{label}</Text>
-    {rightComponent ? rightComponent : <Icon name="chevron-forward" size={18} color="#999" />}
+    {rightComponent ? (
+      rightComponent
+    ) : (
+      <Icon name="chevron-forward" size={18} color="#999" />
+    )}
   </TouchableOpacity>
 );
 
@@ -69,11 +74,12 @@ export default function Profile({ navigation }) {
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
   const { logout } = useAuth();
 
-  console.log("customerData in profile ", customerData);
+  console.log('customerData in profile ', customerData);
 
   const getPermissionStatus = async () => {
-    const status = await messaging().hasPermission?.()
-      ?? await messaging().requestPermission();
+    const status =
+      (await messaging().hasPermission?.()) ??
+      (await messaging().requestPermission());
 
     return (
       status === messaging.AuthorizationStatus.AUTHORIZED ||
@@ -82,7 +88,7 @@ export default function Profile({ navigation }) {
   };
 
   useEffect(() => {
-    const subscription = AppState.addEventListener('change', async (state) => {
+    const subscription = AppState.addEventListener('change', async state => {
       if (state !== 'active') return;
 
       console.log('🔄 App resumed');
@@ -94,7 +100,7 @@ export default function Profile({ navigation }) {
 
         setNotificationsEnabled(false);
         await AsyncStorage.removeItem(ASYNC_FCM_TOKEN);
-        dispatch(updateFcmToken(""));
+        dispatch(updateFcmToken(''));
         return;
       }
 
@@ -127,7 +133,7 @@ export default function Profile({ navigation }) {
 
       if (!permissionGranted) {
         await AsyncStorage.removeItem(ASYNC_FCM_TOKEN);
-        dispatch(updateFcmToken(""));
+        dispatch(updateFcmToken(''));
       }
     };
 
@@ -137,25 +143,27 @@ export default function Profile({ navigation }) {
   const handleDeleteAccount = async () => {
     try {
       const result = await dispatch(deleteAccount()).unwrap();
-      console.log("Account deletion result:", result);
+      console.log('Account deletion result:', result);
       await logout();
       dispatch(clearAddressState());
       await AsyncStorage.removeItem(ASYNC_FCM_TOKEN);
       await AsyncStorage.removeItem('userLocation');
       // await AsyncStorage.removeItem('userLocation');
     } catch (error) {
-      console.error("Delete account error:", error);
+      console.error('Delete account error:', error);
     } finally {
       setDeleteModalVisible(false);
     }
   };
 
   const handleRateApp = () => {
-    Linking.openURL("market://details?id=your.package.name");
+    Linking.openURL(
+      'https://play.google.com/store/apps/details?id=com.estreewala&pcampaignid=web_share',
+    );
   };
 
   const pickImage = () => {
-    launchImageLibrary({ mediaType: "photo" }, (response) => {
+    launchImageLibrary({ mediaType: 'photo' }, response => {
       if (response.didCancel) return;
       if (response.assets && response.assets.length > 0) {
         setProfileImage(response.assets[0].uri);
@@ -167,12 +175,12 @@ export default function Profile({ navigation }) {
     dispatch(getCustomerDetails());
   }, [dispatch]);
 
-  const handleNotificationToggle = async (value) => {
+  const handleNotificationToggle = async value => {
     if (!value) {
       // User manually turned OFF
       setNotificationsEnabled(false);
       await AsyncStorage.removeItem(ASYNC_FCM_TOKEN);
-      dispatch(updateFcmToken(""));
+      dispatch(updateFcmToken(''));
       return;
     }
 
@@ -181,12 +189,12 @@ export default function Profile({ navigation }) {
 
     if (!permissionGranted) {
       Alert.alert(
-        "Enable Notifications",
-        "Please allow notifications from settings.",
+        'Enable Notifications',
+        'Please allow notifications from settings.',
         [
-          { text: "Cancel", style: "cancel" },
-          { text: "Open Settings", onPress: () => Linking.openSettings() },
-        ]
+          { text: 'Cancel', style: 'cancel' },
+          { text: 'Open Settings', onPress: () => Linking.openSettings() },
+        ],
       );
       return;
     }
@@ -206,7 +214,7 @@ export default function Profile({ navigation }) {
       await logout();
 
       dispatch(clearAddressState());
-    
+
       showToast('Logged out successfully', 'success');
     } catch (e) {
       console.log('Logout error:', e);
@@ -217,14 +225,20 @@ export default function Profile({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.main}>
-        <Header iconColor={appColors.white} titleStyle={{ color: appColors.white }} onBackPress={() => navigation.goBack()} containerStyle={{ paddingVertical: windowHeight(7), }} title="My Profile" />
+        <Header
+          iconColor={appColors.white}
+          titleStyle={{ color: appColors.white }}
+          onBackPress={() => navigation.goBack()}
+          containerStyle={{ paddingVertical: windowHeight(7) }}
+          title="My Profile"
+        />
         <View style={styles.profileSection}>
           <TouchableOpacity onPress={pickImage} activeOpacity={0.8}>
             <Image
               source={
                 profileImage
                   ? { uri: profileImage }
-                  : require("../../assets/images/avtar.png")
+                  : require('../../assets/images/avtar.png')
               }
               style={styles.profileImage}
             />
@@ -240,13 +254,14 @@ export default function Profile({ navigation }) {
       >
         {/* ==== USER INFO ==== */}
 
-
         {/* ==== First Group ==== */}
         <View style={styles.menuCard}>
           <MenuItem
-            icon={<Icon name="person-outline" size={20} color={appColors.font} />}
+            icon={
+              <Icon name="person-outline" size={20} color={appColors.font} />
+            }
             label="Personal Information"
-            onPress={() => navigation.navigate("LoginSecurity")}
+            onPress={() => navigation.navigate('LoginSecurity')}
           />
           <MenuItem
             icon={<BellIcon size={18} color={appColors.font} />}
@@ -255,15 +270,17 @@ export default function Profile({ navigation }) {
               <Switch
                 value={notificationsEnabled}
                 onValueChange={handleNotificationToggle}
-                trackColor={{ false: "#ccc", true: appColors.font }}
-                thumbColor={notificationsEnabled ? "#fff" : "#f4f3f4"}
+                trackColor={{ false: '#ccc', true: appColors.font }}
+                thumbColor={notificationsEnabled ? '#fff' : '#f4f3f4'}
               />
             }
           />
           <MenuItem
-            icon={<Icon name="location-outline" size={20} color={appColors.font} />}
+            icon={
+              <Icon name="location-outline" size={20} color={appColors.font} />
+            }
             label="Manage Address"
-            onPress={() => navigation.navigate("ManageAddress")}
+            onPress={() => navigation.navigate('ManageAddress')}
             isLast
           />
         </View>
@@ -278,27 +295,39 @@ export default function Profile({ navigation }) {
           <MenuItem
             icon={<HelpSupportIcon />}
             label="Contact Support"
-            onPress={() => navigation.navigate("ContactSupport")}
+            onPress={() => navigation.navigate('ContactSupport')}
           />
           <MenuItem
-            icon={<Icon name="information-circle-outline" size={20} color={appColors.font} />}
+            icon={
+              <Icon
+                name="information-circle-outline"
+                size={20}
+                color={appColors.font}
+              />
+            }
             label="About Us"
-            onPress={() => navigation.navigate("AboutUs")}
+            onPress={() => navigation.navigate('AboutUs')}
           />
           <MenuItem
-            icon={<Icon name="shield-checkmark-outline" size={20} color={appColors.font} />}
+            icon={
+              <Icon
+                name="shield-checkmark-outline"
+                size={20}
+                color={appColors.font}
+              />
+            }
             label="Privacy Policy"
-            onPress={() => navigation.navigate("PrivacyPolicy")}
+            onPress={() => navigation.navigate('PrivacyPolicy')}
           />
           <MenuItem
             icon={<Faq />}
             label="FAQ"
-            onPress={() => navigation.navigate("Faqs")}
+            onPress={() => navigation.navigate('Faqs')}
           />
           <MenuItem
             icon={<TermsServiceIcon />}
             label="Terms Of Service"
-            onPress={() => navigation.navigate("TermsOfServiceScreen")}
+            onPress={() => navigation.navigate('TermsOfServiceScreen')}
           />
           <MenuItem
             icon={<Icon name="star-outline" size={16} color={appColors.font} />}
@@ -307,7 +336,6 @@ export default function Profile({ navigation }) {
             isLast
           />
         </View>
-
 
         <View style={{ marginVertical: 10 }}>
           <TouchableOpacity
@@ -338,8 +366,6 @@ export default function Profile({ navigation }) {
           />
           <Text style={styles.logoutText}>Logout</Text>
         </TouchableOpacity>
-
-
       </ScrollView>
 
       <DeleteAccountModal

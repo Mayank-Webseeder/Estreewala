@@ -10,7 +10,8 @@ import {
   ScrollView,
   PermissionsAndroid,
   Platform,
-  BackHandler
+  BackHandler,
+  Linking,
 } from 'react-native';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -36,7 +37,9 @@ import { useAuth } from '../../../utils/context/authContext';
 
 const PhoneLoginScreen = ({ navigation }) => {
   const dispatch = useDispatch();
-  const { otpLoading, otpSent, verifyLoading } = useSelector(state => state.auth);
+  const { otpLoading, otpSent, verifyLoading } = useSelector(
+    state => state.auth,
+  );
   const { login, saveLocation } = useAuth();
   const [phone, setPhone] = useState('');
   const [otp, setOtp] = useState('');
@@ -73,7 +76,7 @@ const PhoneLoginScreen = ({ navigation }) => {
 
     const backHandler = BackHandler.addEventListener(
       'hardwareBackPress',
-      backAction
+      backAction,
     );
 
     return () => backHandler.remove();
@@ -111,12 +114,11 @@ const PhoneLoginScreen = ({ navigation }) => {
     if (Platform.OS !== 'android') return true;
 
     const granted = await PermissionsAndroid.request(
-      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
+      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
     );
 
     return granted === PermissionsAndroid.RESULTS.GRANTED;
   };
-
 
   const reverseGeocode = async (lat, lng) => {
     const res = await fetch(
@@ -126,7 +128,7 @@ const PhoneLoginScreen = ({ navigation }) => {
           'User-Agent': 'LaundryApp/1.0',
           Accept: 'application/json',
         },
-      }
+      },
     );
     return res.json();
   };
@@ -159,7 +161,7 @@ const PhoneLoginScreen = ({ navigation }) => {
           async ({ coords }) => {
             const geoData = await reverseGeocode(
               coords.latitude,
-              coords.longitude
+              coords.longitude,
             );
 
             const parsed = parseAddress(geoData);
@@ -175,7 +177,7 @@ const PhoneLoginScreen = ({ navigation }) => {
             console.log('📍 Location error:', error);
             resolve(null);
           },
-          { enableHighAccuracy: true, timeout: 10000 }
+          { enableHighAccuracy: true, timeout: 10000 },
         );
       });
     } catch (e) {
@@ -183,7 +185,6 @@ const PhoneLoginScreen = ({ navigation }) => {
       return null;
     }
   };
-
 
   /* ================= OTP HANDLERS ================= */
 
@@ -205,7 +206,6 @@ const PhoneLoginScreen = ({ navigation }) => {
     dispatch(sendOtp({ phone }));
     setResendTimer(30);
   };
-
 
   const handleVerifyOtp = async () => {
     try {
@@ -241,32 +241,46 @@ const PhoneLoginScreen = ({ navigation }) => {
     }
   };
 
+  const openTerms = () => {
+    Linking.openURL('https://www.estreewalla.com/terms-and-conditions');
+  };
+
+  const openPrivacyPolicy = () => {
+    Linking.openURL('https://www.estreewalla.com/privacy-policy');
+  };
 
   /* ================= UI ================= */
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar translucent barStyle="dark-content" backgroundColor="transparent" />
+      <StatusBar
+        translucent
+        barStyle="dark-content"
+        backgroundColor="transparent"
+      />
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.container}
       >
-        <ScrollView contentContainerStyle={styles.scrollContent} keyboardShouldPersistTaps="handled">
+        <ScrollView
+          contentContainerStyle={styles.scrollContent}
+          keyboardShouldPersistTaps="handled"
+        >
           {isOtpSent && (
-  <TouchableOpacity
-    style={styles.backButton}
-    onPress={() => {
-      setIsOtpSent(false);
-      setOtp('');
-      setResendTimer(30);
-      dispatch(resetOtpState()); // reset Redux OTP state
-    }}
-  >
-    <View style={styles.backButtonCircle}>
-      <Ionicons name="arrow-back" size={20} color={appColors.white} />
-    </View>
-  </TouchableOpacity>
-)}
+            <TouchableOpacity
+              style={styles.backButton}
+              onPress={() => {
+                setIsOtpSent(false);
+                setOtp('');
+                setResendTimer(30);
+                dispatch(resetOtpState()); // reset Redux OTP state
+              }}
+            >
+              <View style={styles.backButtonCircle}>
+                <Ionicons name="arrow-back" size={20} color={appColors.white} />
+              </View>
+            </TouchableOpacity>
+          )}
           <View style={styles.centerView}>
             <AuthHeader
               title="Sign in with Phone"
@@ -275,7 +289,6 @@ const PhoneLoginScreen = ({ navigation }) => {
                   ? `Enter the OTP sent to ${selectedCountry.dialCode}${phone}`
                   : 'Enter your phone number to continue'
               }
-
             />
             <View style={styles.mainView}>
               <View style={styles.mainContainer} />
@@ -340,28 +353,42 @@ const PhoneLoginScreen = ({ navigation }) => {
                     </Text>
                   </TouchableOpacity>
 
-                  <TouchableOpacity
-                    style={styles.checkboxContainer}
-                    activeOpacity={0.8}
-                    onPress={() => setIsChecked(!isChecked)}
-                  >
-                    <Ionicons
-                      name={isChecked ? 'checkbox' : 'square-outline'}
-                      size={18}
-                      color={isChecked ? appColors.primary : '#999'}
-                    />
-                    <View style={styles.termsContainer}>
+                  <View style={styles.checkboxContainer}>
+                    <TouchableOpacity
+                      activeOpacity={0.7}
+                      onPress={() => setIsChecked(!isChecked)}
+                      hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                      style={styles.checkboxTouchable}
+                    >
+                      <Ionicons
+                        name={isChecked ? 'checkbox' : 'square-outline'}
+                        size={18}
+                        color={isChecked ? appColors.primary : '#999'}
+                      />
+                    </TouchableOpacity>
+
+                    {/* 👇 Text area also toggles checkbox */}
+                    <TouchableOpacity
+                      activeOpacity={0.7}
+                      onPress={() => setIsChecked(!isChecked)}
+                      style={styles.termsContainer}
+                    >
                       <Text style={styles.termsText}>
                         I agree to the{' '}
-                        <Text style={styles.highlightText}>
-                          Terms of Service
+                        <Text style={styles.highlightText} onPress={openTerms}>
+                          Terms & Conditions
                         </Text>{' '}
                         and{' '}
-                        <Text style={styles.highlightText}>Privacy Policy</Text>
+                        <Text
+                          style={styles.highlightText}
+                          onPress={openPrivacyPolicy}
+                        >
+                          Privacy Policy
+                        </Text>
                         .
                       </Text>
-                    </View>
-                  </TouchableOpacity>
+                    </TouchableOpacity>
+                  </View>
                 </>
               ) : (
                 <Animated.View style={{ opacity: fadeAnim }}>
@@ -404,7 +431,7 @@ const PhoneLoginScreen = ({ navigation }) => {
                         {
                           color:
                             resendTimer > 0 || otpLoading
-                              ? '#9E9E9E'        // gray
+                              ? '#9E9E9E' // gray
                               : appColors.primary, // blue
                         },
                       ]}
@@ -413,13 +440,10 @@ const PhoneLoginScreen = ({ navigation }) => {
                         ? `Resend OTP in ${resendTimer}s`
                         : 'Resend OTP'}
                     </Text>
-
                   </TouchableOpacity>
-
                 </Animated.View>
               )}
             </View>
-
           </View>
         </ScrollView>
       </KeyboardAvoidingView>

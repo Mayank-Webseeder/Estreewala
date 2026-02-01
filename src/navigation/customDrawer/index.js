@@ -19,7 +19,7 @@ const CustomDrawerContent = (props) => {
   );
 
   const handleRateApp = () => {
-    Linking.openURL('market://details?id=your.package.name');
+    Linking.openURL('https://play.google.com/store/apps/details?id=com.estreewala&pcampaignid=web_share');
   };
 
   const handleLogout = async () => {

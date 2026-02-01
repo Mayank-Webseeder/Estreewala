@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
     backgroundColor: appColors.background,
   },
   centerView: {
-    justifyContent: "center",
+    justifyContent: 'center',
     // height:"80%",
     // width:"100%"
   },
@@ -26,7 +26,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 10,
-    height: 56
+    height: 56,
   },
   countryCodeContainer: {
     flexDirection: 'row',
@@ -47,7 +47,6 @@ export const styles = StyleSheet.create({
     shadowRadius: 10,
     elevation: 2,
     borderWidth: 0.1,
-
   },
   flag: {
     fontSize: 20,
@@ -61,7 +60,7 @@ export const styles = StyleSheet.create({
   },
   phoneInput: {
     flex: 1,
-    borderColor: "#d2b48c",
+    borderColor: '#d2b48c',
     borderWidth: 1,
     paddingHorizontal: 12,
     borderTopRightRadius: 8,
@@ -90,15 +89,13 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 10,
-    marginTop: 20
-
+    marginTop: 20,
   },
   activeButton: {
     backgroundColor: appColors.blue,
   },
   inactiveButton: {
     backgroundColor: appColors.inActive,
-
   },
   submitButtonText: {
     color: appColors.white,
@@ -130,25 +127,29 @@ export const styles = StyleSheet.create({
     color: appColors.blue,
     fontSize: 14,
   },
-  termsContainer: {
-    marginTop: 0,
-    marginHorizontal: 6
-  },
+
   checkboxContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: windowHeight(32),
-    marginHorizontal: windowHeight(4)
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 12,
+    marginHorizontal: windowHeight(4),
+  },
+  checkboxTouchable: {
+    padding: 3, //  invisible padding for better tap
+  },
+  termsContainer: {
+    marginLeft: 6,
+    flex: 1,
   },
   termsText: {
     fontFamily: fonts.InterRegular,
     fontSize: 11,
     color: appColors.font,
-    textAlign: 'center',
-    lineHeight: 20,
   },
   highlightText: {
-    color: "#947757",
+    color: '#947757',
+    textDecorationLine: 'underline',
+    fontFamily: fonts.InterSemiBold,
   },
   errorText: {
     color: appColors.error,
@@ -156,7 +157,7 @@ export const styles = StyleSheet.create({
     marginTop: 4,
     marginBottom: 8,
     marginLeft: 10,
-    fontFamily: fonts.InterMedium
+    fontFamily: fonts.InterMedium,
   },
   errorInput: {
     borderColor: appColors.error,
@@ -203,18 +204,16 @@ export const styles = StyleSheet.create({
   },
 
   backButtonCircle: {
-    width: 40,              // circle width
-    height: 40,             // circle height
-    borderRadius: 20,       // make it a perfect circle
+    width: 40, // circle width
+    height: 40, // circle height
+    borderRadius: 20, // make it a perfect circle
     backgroundColor: appColors.darkBlue, // circle color
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: '#000',    // optional shadow for iOS
+    shadowColor: '#000', // optional shadow for iOS
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.3,
     shadowRadius: 3,
-    elevation: 5,           // shadow for Android
+    elevation: 5, // shadow for Android
   },
-
-
 });
