@@ -4,8 +4,7 @@ import {
   Text,
   TouchableOpacity,
   ScrollView,
-  Switch,
-  StatusBar,
+  Switch
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { styles } from './styles';
@@ -52,7 +51,6 @@ export default function Settings({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor={appColors.background} />
       <Header
         title="Settings"
         onBackPress={() => navigation.goBack()}

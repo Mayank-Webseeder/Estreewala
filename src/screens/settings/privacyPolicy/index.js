@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   ScrollView,
-  StatusBar,
   StyleSheet,
   View
 } from 'react-native';
@@ -182,7 +181,6 @@ const PrivacyPolicyScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" translucent backgroundColor="transparent" />
       <Header
         title="Privacy Policy"
         onBackPress={() => navigation.goBack()}

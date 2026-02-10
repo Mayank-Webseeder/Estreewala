@@ -20,6 +20,7 @@ import Geolocation from "react-native-geolocation-service";
 import { PermissionsAndroid } from "react-native";
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import appColors from "../../../theme/appColors";
+import { useFocusEffect } from "@react-navigation/native";
 
 const randomImages = [washingWash, ironinWash];
 
@@ -79,6 +80,14 @@ const PopularLaundry = (props) => {
 
     return () => subscription.remove();
   }, []);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      if (hasValidLocation) {
+        dispatch(getNearbyVendors({ lng: coords[0], lat: coords[1] }));
+      }
+    }, [hasValidLocation, coords])
+  );
 
   // 📡 Fetch vendors when location available
   useEffect(() => {

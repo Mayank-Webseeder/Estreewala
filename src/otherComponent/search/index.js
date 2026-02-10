@@ -7,7 +7,6 @@ import {
   TextInput,
   FlatList,
   ScrollView,
-  StatusBar
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -122,7 +121,6 @@ const laundryServices = [
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor="#fff" />
       <View style={styles.main}>
           {/* Header */}
          <Header

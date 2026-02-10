@@ -10,7 +10,6 @@ import {
   Modal,
   PermissionsAndroid,
   Platform,
-  StatusBar
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import WebView from 'react-native-webview';
@@ -625,7 +624,6 @@ const UserDetailsScreen = ({ navigation, route }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" translucent backgroundColor="transparent" />
       {isLoading ? (
         <View style={styles.loadingContainer}>
           <ActivityIndicator size="large" color={appColors.blue} />

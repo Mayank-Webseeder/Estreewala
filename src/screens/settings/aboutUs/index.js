@@ -3,7 +3,6 @@ import {
   ScrollView,
   StyleSheet,
   View,
-  StatusBar
 } from 'react-native';
 import RenderHtml from 'react-native-render-html';
 import { useWindowDimensions } from 'react-native';
@@ -170,7 +169,6 @@ const AboutUsScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" translucent backgroundColor="transparent" />
       <View style={styles.container}>
         <Header
           title="About Us"

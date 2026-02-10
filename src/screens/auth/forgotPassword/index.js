@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ScrollView, TouchableOpacity, Text, View,StatusBar } from 'react-native';
+import { ScrollView, TouchableOpacity, Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import AuthHeader from '../../../components/auth/authHeader';
 import InputField from '../../../components/auth/inputField';
@@ -19,7 +19,6 @@ const ForgotPasswordScreen = () => {
   
   return (
     <SafeAreaView style={styles.container}>
-       <StatusBar barStyle="dark-content" translucent backgroundColor="transparent" />
       <ScrollView  
         style={styles.scrollView}
         contentContainerStyle={styles.contentContainer}

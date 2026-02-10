@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, Image, TouchableOpacity, StatusBar, ActivityIndicator, Alert ,PermissionsAndroid,Platform} from 'react-native';
+import { View, Text, Image, TouchableOpacity, ActivityIndicator, Alert ,PermissionsAndroid,Platform} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { notification } from '../../../utils/images/images';
 import { styles } from './styles';
@@ -87,7 +87,6 @@ const onNotificationClick = async () => {
 
   return (
     <SafeAreaView style={styles.safe}>
-      <StatusBar barStyle="dark-content" translucent backgroundColor="transparent" /> 
       <View style={styles.container}>
         <Text style={styles.title}>
           Enable notifications to get updates{'\n'}about offers, order status and more

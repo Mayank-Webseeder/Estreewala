@@ -9,7 +9,6 @@ import {
   ActivityIndicator,
   Alert,
   Platform,
-  StatusBar
 } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
@@ -201,7 +200,6 @@ const OrderDetails = ({ navigation, route }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" translucent backgroundColor="transparent" />
       <ScrollView
         contentContainerStyle={styles.contentContainerStyle}
         style={styles.container}

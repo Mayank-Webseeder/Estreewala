@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, TextInput, ScrollView,StatusBar } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Header from '../../../components/header';
@@ -93,7 +93,6 @@ const ChangePasswordScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-         <StatusBar barStyle="dark-content" translucent backgroundColor="transparent" />
       <Header
         title="Change Password"
         onBackPress={() => navigation.goBack()}

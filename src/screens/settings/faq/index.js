@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ScrollView, View, Text, TouchableOpacity,StatusBar } from 'react-native';
+import { ScrollView, View, Text, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { styles } from './styles';
 import Header from "../../../components/header";
@@ -113,7 +113,6 @@ const FAQS = ({ navigation }) => {
 
   return (
    <SafeAreaView style={styles.container}>
-       <StatusBar barStyle="dark-content" translucent backgroundColor="transparent" />
      <View style={styles.container}>
        <Header
         title="FAQ"

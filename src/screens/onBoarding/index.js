@@ -6,7 +6,6 @@ import {
   Dimensions,
   Image,
   Animated,
-  StatusBar,
   ScrollView,
 } from "react-native";
 import { styles } from "./styles";
@@ -127,7 +126,6 @@ navigation.replace("PhoneLogin");
   return (
     <Animated.View style={[styles.container, { backgroundColor }]}>
       <SafeAreaView style={{ flex: 1 }}>
-        <StatusBar barStyle="dark-content" translucent backgroundColor="transparent" />
         {/* Skip Button */}
         {currentIndex < slides.length - 1 && (
           <TouchableOpacity style={styles.skipBtn} onPress={handleSkip}>

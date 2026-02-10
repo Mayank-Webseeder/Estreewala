@@ -2,8 +2,7 @@ import React from 'react';
 import {
   ScrollView,
   StyleSheet,
-  View,
-  StatusBar
+  View,  
 } from 'react-native';
 import RenderHtml from 'react-native-render-html';
 import { useWindowDimensions } from 'react-native';
@@ -194,7 +193,6 @@ const TermsOfServiceScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" translucent backgroundColor="transparent" />
       <View style={styles.container}>
         <Header
           title="Terms of Service"

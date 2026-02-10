@@ -6,7 +6,6 @@ import {
   Linking,
   TextInput,
   ScrollView,
-  StatusBar
 } from 'react-native';
 import { styles } from './styles';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -38,7 +37,6 @@ export default function ContactSupport({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" translucent backgroundColor="transparent" />
       <View style={styles.container}>
         <Header
           title="Contact Support"

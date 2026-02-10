@@ -3,7 +3,6 @@ import {
   View,
   Text,
   FlatList,
-  StatusBar,
   TouchableOpacity,
   Modal,
   TouchableWithoutFeedback,
@@ -515,7 +514,6 @@ export default function LaundryScreen({ navigation, route }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" translucent backgroundColor="transparent" />
       <View
         style={{
           backgroundColor: appColors.darkBlue,

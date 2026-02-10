@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from 'react';
-import { View, Text, ScrollView, StatusBar } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { styles } from './styles';
 import appColors from '../../../theme/appColors';
@@ -59,7 +59,6 @@ const OrderConfirmation = ({ navigation, route }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" translucent backgroundColor="transparent" />
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         {/* Header */}
         <Header

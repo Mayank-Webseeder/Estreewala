@@ -12,14 +12,19 @@ import searchReducer from "../redux/slices/searchSlice"
 import notificationReducer from "../redux/slices/notificationSlice"
 import deleteAccountReducer from "../redux/slices/deleteAccountSlice"
 import orderDetailReducer from "../redux/slices/orderDetailSlice";
+import uiReducer from './slices/uiSlice';
+import networkReducer from './slices/networkSlice';
+
 
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  whitelist: ['auth', 'cart'], // ✅ only persist auth slice
+  whitelist: ['auth', 'cart'], 
 };
 
 const rootReducer = combineReducers({
+  ui: uiReducer,
+  network: networkReducer,
   auth: authReducer,
   address: addressReducer,
   nearByVendor: nearByVendorReducer,

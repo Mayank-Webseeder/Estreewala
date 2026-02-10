@@ -4,7 +4,6 @@ import {
   TouchableOpacity,
   Text,
   View,
-  StatusBar,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import AuthHeader from '../../../components/auth/authHeader';
@@ -31,11 +30,6 @@ const SignInScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar
-        barStyle="dark-content"
-        translucent
-        backgroundColor="transparent"
-      />
       <ScrollView
         style={styles.scrollView}
         contentContainerStyle={styles.contentContainer}

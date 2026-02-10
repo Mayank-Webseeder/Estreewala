@@ -7,7 +7,6 @@ import {
   TextInput,
   ActivityIndicator,
   Alert,
-  StatusBar
 } from "react-native";
 import { useDispatch, useSelector } from 'react-redux';
 import Header from "../../../components/header";
@@ -133,7 +132,6 @@ const LoginSecurityScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={[styles.container, { paddingHorizontal: 0 }]}>
-      <StatusBar barStyle="dark-content" translucent backgroundColor="transparent" />
       <View style={styles.container}>
         <Header title={"Personal Information"} onBackPress={() => navigation.goBack()} />
         <ScrollView contentContainerStyle={styles.content}>

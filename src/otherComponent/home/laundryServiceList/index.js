@@ -5,7 +5,6 @@ import {
   ScrollView,
   TouchableOpacity,
   ActivityIndicator,
-  StatusBar,
   RefreshControl,
   PermissionsAndroid, Platform, Alert,
   Linking,
@@ -244,22 +243,29 @@ const LaundryServiceList = ({ navigation, route }) => {
       reset: false,
     });
 
-  }, [serviceName, vendors]); // 🔥 userLocation dependency hatao
+  }, [serviceName, vendors]); 
 
+ useFocusEffect(
+  useCallback(() => {
+    if (hasValidLocation) {
+      dispatch(clearVendors());
+      dispatch(
+        getNearbyVendors({
+          lng: coords[0],
+          lat: coords[1],
+        })
+      );
+    }
+    return () => {
+      navigation.setParams({ serviceName: undefined });
+      setSelectedServices([]);
+      setUseFilteredList(false);
+      setFilteredVendors([]);
+      setEmptyMessage('');
+    };
+  }, [hasValidLocation, coords?.[0], coords?.[1], dispatch, navigation])
+);
 
-  // 📡 Fetch vendors when location available
-  useEffect(() => {
-    if (!hasValidLocation) return;
-
-    dispatch(clearVendors());
-
-    dispatch(
-      getNearbyVendors({
-        lng: coords[0],
-        lat: coords[1],
-      })
-    );
-  }, [hasValidLocation, coords?.[0], coords?.[1]]);
 
   // Reverse geocode
   const requestLocationPermission = async () => {

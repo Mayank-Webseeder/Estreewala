@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { View, Text, FlatList, TouchableOpacity, ActivityIndicator, StatusBar } from "react-native";
+import { View, Text, FlatList, TouchableOpacity, ActivityIndicator } from "react-native";
 import { styles } from "./styles";
 import FastImage from "react-native-fast-image";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
@@ -376,7 +376,6 @@ const OrdersScreen = ({ navigation, route }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" translucent backgroundColor="transparent" />
       <View style={styles.container}>
         <View style={styles.main}>
           <Header

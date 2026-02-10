@@ -5,7 +5,6 @@ import {
   TouchableOpacity,
   FlatList,
   ActivityIndicator,
-  StatusBar,
   Modal,
   PermissionsAndroid,
   BackHandler,
@@ -314,7 +313,6 @@ export default function ManageAddress({ navigation, route }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar translucent backgroundColor="transparent" />
       <Header
         title="Manage Address"
         onBackPress={() => {

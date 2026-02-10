@@ -9,7 +9,6 @@ import {
   Linking,
   Platform,
   PermissionsAndroid,
-  StatusBar
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
@@ -513,7 +512,6 @@ const ConfirmLocationScreen = ({ route }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" translucent backgroundColor="transparent" />
       {/* Header */}
 
       {/* Map View with WebView */}

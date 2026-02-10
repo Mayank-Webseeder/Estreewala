@@ -7,7 +7,6 @@ import {
   ScrollView,
   PermissionsAndroid,
   Platform,
-  StatusBar,
   TextInput
 } from 'react-native';
 import WebView from 'react-native-webview';
@@ -702,7 +701,6 @@ const MapAddressScreen = ({ navigation, route }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" translucent backgroundColor="transparent" />
       <Header
         title={editingAddress ? "Edit Address" : "Add New Address"}
         onBackPress={() => navigation.goBack()}

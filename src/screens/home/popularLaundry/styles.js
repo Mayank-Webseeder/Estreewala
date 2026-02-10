@@ -1,7 +1,8 @@
 import fonts from '../../../theme/appFonts';
 import appColors from '../../../theme/appColors';
 import { StyleSheet } from 'react-native';
-import { fontSizes } from '../../../theme/appConstant';
+import { fontSizes, windowHeight } from '../../../theme/appConstant';
+import { SHOULD_AUTOBATCH } from '@reduxjs/toolkit';
 
 export const styles = StyleSheet.create({
   container: {
@@ -98,6 +99,7 @@ export const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: fontSizes.FONT22,
     fontFamily: fonts.InterRegular,
-    color: appColors.font
+    color: appColors.font,
+    marginTop:windowHeight(10)
   }
 });

@@ -6,7 +6,6 @@ import {
   TextInput,
   Animated,
   KeyboardAvoidingView,
-  StatusBar,
   ScrollView,
   PermissionsAndroid,
   Platform,
@@ -253,11 +252,6 @@ const PhoneLoginScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar
-        translucent
-        barStyle="dark-content"
-        backgroundColor="transparent"
-      />
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.container}
